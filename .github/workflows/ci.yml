@@ -30,6 +30,16 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file app/pom.xml
 
+    - name: Bump Version
+      id: bump
+      uses: nnichols/maven-version-bump-action@v4
+      with:
+        github-token: ${{ secrets.github_token }}
+        pom-path: app/
+
+    - name: Print Version
+      run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
