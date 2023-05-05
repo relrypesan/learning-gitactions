@@ -11,7 +11,7 @@
 
     <groupId>me.relrypesan</groupId>
     <artifactId>learning-gitactions</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <name>learning-gitactions</name>
     <description>Projeto utilizado para aprender sobre Gihub Actions</description>
 
