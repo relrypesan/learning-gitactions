@@ -15,6 +15,11 @@ on:
     branches: [ "master" ]
 
 permissions:
+  deployments: write
+  contents: write
+  statuses: write
+  actions: write
+  checks: read
   pull-requests: write
   issues: write
   repository-projects: write
@@ -37,7 +42,7 @@ jobs:
       id: bump
       uses: nnichols/maven-version-bump-action@v4
       with:
-        github-token: ${{ secrets.github_token }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Print Version
       run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
 
