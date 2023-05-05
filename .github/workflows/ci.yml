@@ -68,6 +68,7 @@ jobs:
   docker-publish:
     name: Build & Push Docker Image
     needs:
+      - java-maven
       - bump-version
     runs-on: ubuntu-latest
     steps:
