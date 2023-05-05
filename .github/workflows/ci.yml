@@ -54,4 +54,4 @@ jobs:
       with:
         context: app/
         push: true
-        tags: relrypesan/learning-gitactions-app-java:latest
+        tags: relrypesan/learning-gitactions-app-java:${{steps.bump.outputs.version}}
