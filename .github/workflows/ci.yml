@@ -77,4 +77,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: relrypesan/learning-gitactions-app-java:${{ jobs.bump-version.outputs.version }}
+          tags: relrypesan/learning-gitactions-app-java:${{ needs.bump-version.outputs.version }}
