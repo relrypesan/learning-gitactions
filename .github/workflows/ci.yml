@@ -27,18 +27,17 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file app/pom.xml
 
     - name: Bump Version
       id: bump
-      uses: relrypesan/maven-version-bump-action@v1.0.0
+      uses: nnichols/maven-version-bump-action@v4
       with:
         github-token: ${{ secrets.github_token }}
-        pom-path: app/
-
     - name: Print Version
       run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
@@ -52,6 +51,5 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v4
       with:
-        context: app/
         push: true
         tags: relrypesan/learning-gitactions-app-java:${{steps.bump.outputs.version}}
