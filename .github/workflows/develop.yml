@@ -10,9 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "develop" ]
 
 permissions:
   deployments: write
@@ -29,7 +29,8 @@ jobs:
     name: Java-Maven
     runs-on: ubuntu-latest
     steps:
-    - extends: maven-build.yml
+    - name: Build with Maven
+      uses: ./.github/workflow/maven-build.yml
 
     - name: Test with Maven
       run: mvn -B test --file pom.xml
@@ -54,6 +55,14 @@ jobs:
       - name: Print Version
         run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
 
+      - name: Upload artifact java
+        uses: actions/upload-artifact@v2
+        with:
+          name: java-target
+          path: |
+            target/**/*
+            Dockerfile
+
   docker-publish:
     name: Build & Push Docker Image
     needs:
@@ -61,7 +70,10 @@ jobs:
       - bump-version
     runs-on: ubuntu-latest
     steps:
-      - extends: maven-build.yml
+      - name: Baixar arquivo target
+        uses: actions/download-artifact@v2
+        with:
+          name: java-target
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
