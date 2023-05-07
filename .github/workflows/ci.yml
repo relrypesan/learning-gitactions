@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Build with Maven
-      uses: ./.github/workflows/maven-build.yml
+      extends: ./maven-build.yml
 
     - name: Test with Maven
       run: mvn -B test --file pom.xml
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Package with Maven
-        uses: ./.github/workflows/maven-build.yml
+        extends: ./maven-build.yml
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
