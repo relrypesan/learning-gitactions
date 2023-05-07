@@ -29,8 +29,7 @@ jobs:
     name: Java-Maven
     runs-on: ubuntu-latest
     steps:
-    - name: Build with Maven
-      extends: ./maven-build.yml
+    - extends: maven-build.yml
 
     - name: Test with Maven
       run: mvn -B test --file pom.xml
@@ -62,8 +61,7 @@ jobs:
       - bump-version
     runs-on: ubuntu-latest
     steps:
-      - name: Package with Maven
-        extends: ./maven-build.yml
+      - extends: maven-build.yml
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
