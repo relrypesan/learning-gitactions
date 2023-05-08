@@ -25,15 +25,15 @@ permissions:
   repository-projects: write
 
 jobs:
-  java-maven:
+  java-build:
+    uses: ./.github/workflows/maven-build.yml
+
+  java-test:
     name: Java-Maven
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GitActions
         uses: actions/checkout@v3
-
-      - name: Build with Maven
-        uses: relrypesan/learning-gitactions/.github/workflows/maven-build.yml@develop
 
       - name: Test with Maven
         run: mvn -B test --file pom.xml
@@ -41,7 +41,8 @@ jobs:
   bump-version:
     name: Bump-Maven
     needs:
-      - java-maven
+      - java-build
+      - java-test
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.bump.outputs.version }}
@@ -69,7 +70,6 @@ jobs:
   docker-publish:
     name: Build & Push Docker Image
     needs:
-      - java-maven
       - bump-version
     runs-on: ubuntu-latest
     steps:
