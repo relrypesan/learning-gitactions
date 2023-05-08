@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Build with Maven
-      uses: ./.github/workflow/maven-build.yml
+      uses: relrypesan/learning-gitactions/.github/workflow/maven-build.yml@master
 
     - name: Test with Maven
       run: mvn -B test --file pom.xml
